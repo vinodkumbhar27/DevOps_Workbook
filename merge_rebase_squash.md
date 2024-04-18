@@ -33,14 +33,28 @@ git merge feature-branch
 - Useful for cleaning up the commit history and creating a more linear and cleaner history.
 - Can be used to incorporate changes from one branch into another, similar to merge but with a different commit history.
 
-**Scenario:**
-- You have a feature branch, and you want to incorporate changes from the main branch and make your feature branch up-to-date without creating merge commits.
+**Scenario**:
+You start working on a new feature in a branch called dev while the main project development continues on the main branch.
 
-**Command:**
-```bash
-# While on the feature branch
-git rebase master
-```
+**Starting Point**:
+**main branch commits**: A → B → C
+**dev branch commits**: A → D → E
+Here, A is the point where both branches were the same last time. Commits B and C are new updates to the main project, and D and E are your work on the new feature.
+
+**Goal**:
+You want to update your dev branch so it includes all the recent updates from main, but you also want to maintain a clean, linear history.
+
+**Action**: Rebase dev on main
+**What happens during a rebase**:
+
+Git "lifts" the unique commits from your dev branch (D and E) off the base commit (A).
+It then places these commits (D and E) on top of the latest commit on main (C).
+
+**Result After Rebase**:
+**main branch commits**: A → B → C
+**dev branch after rebase**: A → B → C → D' → E'
+After rebasing, commits D' and E' are the rebased versions of D and E. They may be the same or slightly different if adjustments were needed to fit on top of C. The history now appears as if you started your feature development right after the latest update in main, creating a straightforward, linear sequence of events.
+
 
 ![image](https://github.com/discover-devops/DevOps_Workbook/assets/53135263/0ade2d04-f651-4df8-a6db-71a45f7f2837)
 
